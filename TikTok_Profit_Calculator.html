@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="TikTok Lợi Nhuận">
+<meta name="theme-color" content="#f5f5f0">
+<title>Máy tính lợi nhuận TikTok Shop</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:#f5f5f0;color:#1a1a1a;min-height:100vh;padding:env(safe-area-inset-top,16px) 16px env(safe-area-inset-bottom,16px) 16px}
+.wrap{max-width:480px;margin:0 auto;padding-bottom:32px}
+h1{font-size:17px;font-weight:600;margin-bottom:16px;color:#1a1a1a;display:flex;align-items:center;gap:8px;padding-top:8px}
+.card{background:#fff;border:0.5px solid rgba(0,0,0,0.1);border-radius:14px;padding:1.25rem;margin-bottom:12px}
+.sec-label{font-size:11px;font-weight:600;color:#888;letter-spacing:.06em;text-transform:uppercase;margin-bottom:14px}
+.field{margin-bottom:12px}
+.field label{display:block;font-size:13px;color:#666;margin-bottom:6px}
+.irow{display:flex;align-items:center;gap:8px}
+.irow .prefix{font-size:15px;color:#888;min-width:12px}
+.irow .suffix{font-size:15px;color:#888}
+.irow input{flex:1;height:48px;font-size:20px;font-weight:500;padding:0 12px;border-radius:10px;border:1px solid rgba(0,0,0,0.15);background:#f5f5f0;color:#1a1a1a;text-align:right;transition:border-color .15s;outline:none;-webkit-appearance:none}
+.irow input:focus{box-shadow:0 0 0 3px rgba(99,99,255,.15);border-color:rgba(99,99,255,.5)}
+.irow input.computed{border-color:rgba(0,0,0,0.07);color:#999;background:#ececec}
+.field .hint{font-size:11px;color:#bbb;margin-top:4px;text-align:right}
+.divider{height:0.5px;background:rgba(0,0,0,0.08);margin:4px 0 14px}
+.toggle-row{display:flex;align-items:center;justify-content:space-between;padding:10px 0;border-top:0.5px solid rgba(0,0,0,0.08);margin-top:4px}
+.tl{display:flex;flex-direction:column;gap:3px}
+.tl label{font-size:15px;color:#1a1a1a;cursor:pointer}
+.tl small{font-size:12px;color:#999}
+.switch{position:relative;display:inline-block;width:44px;height:26px;flex-shrink:0}
+.switch input{opacity:0;width:0;height:0}
+.slider-sw{position:absolute;cursor:pointer;inset:0;background:#ccc;border-radius:26px;transition:.2s}
+.slider-sw:before{position:absolute;content:"";height:20px;width:20px;left:3px;bottom:3px;background:#fff;border-radius:50%;transition:.2s;box-shadow:0 1px 3px rgba(0,0,0,0.2)}
+input:checked+.slider-sw{background:#1D9E75}
+input:checked+.slider-sw:before{transform:translateX(18px)}
+.aff-rate-row{display:none;padding:8px 0 2px;gap:10px;align-items:center;border-top:0.5px solid rgba(0,0,0,0.06);margin-top:2px}
+.aff-rate-row.show{display:flex}
+.aff-rate-row label{font-size:13px;color:#666;white-space:nowrap}
+.aff-rate-row input[type=number]{width:76px;height:40px;font-size:16px;font-weight:500;padding:0 10px;border-radius:10px;border:1px solid rgba(0,0,0,0.15);background:#f5f5f0;color:#1a1a1a;text-align:right;flex:none;outline:none;-webkit-appearance:none}
+.aff-rate-row input:focus{box-shadow:0 0 0 3px rgba(99,99,255,.15)}
+.metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:12px}
+.metric{background:#f5f5f0;border-radius:10px;padding:14px 12px}
+.m-label{font-size:12px;color:#888;margin-bottom:6px}
+.m-val{font-size:26px;font-weight:600;color:#1a1a1a}
+.m-val.pos{color:#1D9E75}
+.m-val.neg{color:#D85A30}
+.verdict{display:flex;align-items:center;gap:8px;padding:11px 13px;border-radius:10px;margin-top:10px;font-size:13px;line-height:1.4}
+.verdict.good{background:#E1F5EE;color:#0F6E56}
+.verdict.ok{background:#FAEEDA;color:#854F0B}
+.verdict.bad{background:#FAECE7;color:#993C1D}
+.verdict i{font-size:20px;flex-shrink:0}
+.br-row{display:flex;justify-content:space-between;align-items:center;font-size:13px;padding:7px 0;border-bottom:0.5px solid rgba(0,0,0,0.06)}
+.br-row:last-child{border-bottom:none}
+.bl{color:#888}
+.bv{font-weight:500;color:#1a1a1a}
+.br-row.total-row{padding-top:11px;margin-top:2px}
+.br-row.total-row .bl{font-size:14px;font-weight:600;color:#1a1a1a}
+.br-row.total-row .bv{font-size:15px}
+.note{font-size:11px;color:#bbb;margin-top:10px;text-align:center}
+.install-banner{background:#1a1a1a;color:#fff;border-radius:14px;padding:14px 16px;margin-bottom:12px;display:flex;align-items:center;gap:12px;cursor:pointer}
+.install-banner i{font-size:22px;flex-shrink:0;color:#fff}
+.install-banner .ib-text .ib-title{font-size:14px;font-weight:600}
+.install-banner .ib-text .ib-sub{font-size:12px;color:#aaa;margin-top:2px}
+.install-banner .ib-close{margin-left:auto;font-size:18px;color:#666;padding:4px}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="install-banner" id="install-banner" style="display:none" onclick="installApp()">
+    <i class="ti ti-download" aria-hidden="true"></i>
+    <div class="ib-text">
+      <div class="ib-title">Thêm vào màn hình chính</div>
+      <div class="ib-sub">Dùng như app, không cần mạng</div>
+    </div>
+    <span class="ib-close" onclick="hideBanner(event)"><i class="ti ti-x"></i></span>
+  </div>
+
+  <h1><i class="ti ti-calculator" aria-hidden="true"></i> TikTok Lợi Nhuận</h1>
+
+  <div class="card">
+    <div class="sec-label"><i class="ti ti-tag" aria-hidden="true"></i> Giá bán & lợi nhuận</div>
+    <div class="field">
+      <label>Giá bán</label>
+      <div class="irow"><span class="prefix">₫</span><input type="number" id="price" placeholder="nhập giá bán..." min="0" step="1000" inputmode="numeric" oninput="fromPrice()"></div>
+      <div class="hint" id="hint-price"></div>
+    </div>
+    <div class="field">
+      <label>Lời</label>
+      <div class="irow"><span class="prefix">₫</span><input type="number" id="target" placeholder="nhập mục tiêu lời..." min="0" step="1000" inputmode="numeric" oninput="fromTarget()"></div>
+      <div class="hint" id="hint-target"></div>
+    </div>
+    <div class="divider"></div>
+    <div class="sec-label"><i class="ti ti-receipt" aria-hidden="true"></i> Chi phí sản phẩm</div>
+    <div class="field">
+      <label>Giá vốn sản phẩm</label>
+      <div class="irow"><span class="prefix">₫</span><input type="number" id="cogs" placeholder="29,000" min="0" step="1000" inputmode="numeric" oninput="recalc()"></div>
+    </div>
+    <div class="field">
+      <label>Đóng gói & vận hành</label>
+      <div class="irow"><span class="prefix">₫</span><input type="number" id="pack" placeholder="2,000" min="0" step="500" inputmode="numeric" oninput="recalc()"></div>
+    </div>
+    <div class="toggle-row">
+      <div class="tl">
+        <label for="hasAff">Có Affiliate</label>
+        <small id="aff-sub">tỷ lệ hoa hồng liên kết</small>
+      </div>
+      <label class="switch">
+        <input type="checkbox" id="hasAff" onchange="toggleAff()">
+        <span class="slider-sw"></span>
+      </label>
+    </div>
+    <div class="aff-rate-row" id="aff-rate-row">
+      <label>Tỷ lệ hoa hồng</label>
+      <div class="irow" style="flex:0 0 auto;gap:6px">
+        <input type="number" id="affRate" value="10" min="0" max="80" step="1" inputmode="numeric" oninput="recalc()">
+        <span class="suffix">%</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="sec-label"><i class="ti ti-chart-bar" aria-hidden="true"></i> Kết quả</div>
+    <div class="metrics">
+      <div class="metric">
+        <div class="m-label">Lãi / đơn</div>
+        <div class="m-val" id="profit-val">—</div>
+      </div>
+      <div class="metric">
+        <div class="m-label">Margin</div>
+        <div class="m-val" id="margin-val">—</div>
+      </div>
+    </div>
+    <div id="verdict-box"></div>
+  </div>
+
+  <div class="card">
+    <div class="sec-label"><i class="ti ti-list" aria-hidden="true"></i> Chi tiết chi phí</div>
+    <div>
+      <div class="br-row"><span class="bl">Giá bán</span><span class="bv" id="d-price">—</span></div>
+      <div class="br-row"><span class="bl">Giá vốn</span><span class="bv" id="d-cogs" style="color:#D85A30">—</span></div>
+      <div class="br-row"><span class="bl">Đóng gói & vận hành</span><span class="bv" id="d-pack" style="color:#D85A30">—</span></div>
+      <div class="br-row"><span class="bl">Phí giao dịch (6%)</span><span class="bv" id="d-gd" style="color:#D85A30">—</span></div>
+      <div class="br-row"><span class="bl">Phí hoa hồng TikTok (13.5%)</span><span class="bv" id="d-hh" style="color:#D85A30">—</span></div>
+      <div class="br-row"><span class="bl">Phí xử lý + SFR (cố định)</span><span class="bv" style="color:#D85A30">-₫5,008</span></div>
+      <div class="br-row"><span class="bl">Thuế GTGT + TNCN (1.5%)</span><span class="bv" id="d-tax" style="color:#D85A30">—</span></div>
+      <div class="br-row" id="aff-row" style="display:none"><span class="bl" id="aff-row-label">Hoa hồng Affiliate (10%)</span><span class="bv" id="d-aff" style="color:#D85A30">—</span></div>
+      <div class="br-row total-row"><span class="bl">Lãi thực</span><span class="bv" id="d-net">—</span></div>
+    </div>
+    <p class="note" id="note-txt"></p>
+  </div>
+</div>
+
+<script>
+let lastEdited='none',suppress=false,deferredPrompt=null;
+
+window.addEventListener('beforeinstallprompt',e=>{
+  e.preventDefault();deferredPrompt=e;
+  document.getElementById('install-banner').style.display='flex';
+});
+
+function installApp(){
+  if(deferredPrompt){deferredPrompt.prompt();deferredPrompt.userChoice.then(()=>{deferredPrompt=null;hideBanner();});}
+}
+function hideBanner(e){
+  if(e)e.stopPropagation();
+  document.getElementById('install-banner').style.display='none';
+}
+
+function fmt(n){return '₫'+Math.round(Math.abs(n)).toLocaleString('vi-VN')}
+function getConfig(){
+  const cogs=parseFloat(document.getElementById('cogs').value)||0;
+  const pack=parseFloat(document.getElementById('pack').value)||0;
+  const hasAff=document.getElementById('hasAff').checked;
+  const affRate=(parseFloat(document.getElementById('affRate').value)||0)/100;
+  const varPct=0.06+0.135+0.015+(hasAff?affRate:0);
+  return{cogs,pack,hasAff,affRate,varPct,fixed:5008};
+}
+function calcProfit(price,cfg){
+  const{cogs,pack,hasAff,affRate,fixed}=cfg;
+  return price-cogs-pack-price*0.06-price*0.135-fixed-price*0.015-(hasAff?price*affRate:0);
+}
+function calcPrice(target,cfg){
+  return Math.ceil((target+cfg.cogs+cfg.pack+cfg.fixed)/(1-cfg.varPct));
+}
+function fromPrice(){if(suppress)return;lastEdited='price';recalc();}
+function fromTarget(){if(suppress)return;lastEdited='target';recalc();}
+function toggleAff(){
+  const on=document.getElementById('hasAff').checked;
+  document.getElementById('aff-rate-row').className='aff-rate-row'+(on?' show':'');
+  document.getElementById('aff-row').style.display=on?'flex':'none';
+  recalc();
+}
+function recalc(){
+  const cfg=getConfig();
+  const{hasAff,affRate}=cfg;
+  document.getElementById('aff-sub').textContent=hasAff?'tỷ lệ: '+(affRate*100).toFixed(0)+'%':'tỷ lệ hoa hồng liên kết';
+  document.getElementById('aff-row-label').textContent='Hoa hồng Affiliate ('+(affRate*100).toFixed(0)+'%)';
+  const priceEl=document.getElementById('price'),targetEl=document.getElementById('target');
+  let price=0,profit=0;
+  if(lastEdited==='price'){
+    price=parseFloat(priceEl.value)||0;
+    if(price>0){
+      profit=calcProfit(price,cfg);
+      suppress=true;targetEl.value=Math.round(profit);targetEl.className='computed';suppress=false;
+      document.getElementById('hint-price').textContent='';
+      document.getElementById('hint-target').textContent='← tự tính từ giá bán';
+    } else {
+      suppress=true;targetEl.value='';targetEl.className='';suppress=false;
+      document.getElementById('hint-target').textContent='';
+    }
+  } else if(lastEdited==='target'){
+    const target=parseFloat(targetEl.value)||0;
+    if(target>0){
+      price=calcPrice(target,cfg);profit=target;
+      suppress=true;priceEl.value=price;priceEl.className='computed';suppress=false;
+      document.getElementById('hint-target').textContent='';
+      document.getElementById('hint-price').textContent='← tự tính từ mục tiêu lời';
+    } else {
+      suppress=true;priceEl.value='';priceEl.className='';suppress=false;
+      document.getElementById('hint-price').textContent='';
+    }
+  }
+  updateResults(price,profit,cfg);
+  updateDetail(price,cfg);
+}
+function updateResults(price,profit,cfg){
+  const pEl=document.getElementById('profit-val'),mEl=document.getElementById('margin-val'),vEl=document.getElementById('verdict-box');
+  if(price===0){pEl.textContent='—';pEl.className='m-val';mEl.textContent='—';mEl.className='m-val';vEl.innerHTML='';return;}
+  const margin=(profit/price)*100,cls=profit>0?'pos':'neg';
+  pEl.textContent=(profit>=0?'':'-')+fmt(profit);pEl.className='m-val '+cls;
+  mEl.textContent=margin.toFixed(1)+'%';mEl.className='m-val '+cls;
+  let icon,msg,vcls;
+  if(margin>=25){icon='ti-mood-happy';msg='Margin tốt — đơn có lời rõ ràng.';vcls='good';}
+  else if(margin>=15){icon='ti-mood-smile';msg='Margin ổn — chấp nhận được.';vcls='ok';}
+  else if(margin>0){icon='ti-alert-triangle';msg='Margin thấp — cân nhắc tăng giá bán.';vcls='ok';}
+  else{icon='ti-mood-sad';msg='Đang lỗ! Cần tăng giá hoặc giảm chi phí.';vcls='bad';}
+  vEl.innerHTML='<div class="verdict '+vcls+'"><i class="ti '+icon+'"></i><span>'+msg+'</span></div>';
+}
+function updateDetail(price,cfg){
+  const{cogs,pack,hasAff,affRate,fixed}=cfg;
+  const gd=price*0.06,hh=price*0.135,tax=price*0.015,aff=hasAff?price*affRate:0;
+  const profit=price-cogs-pack-gd-hh-fixed-tax-aff;
+  document.getElementById('d-price').textContent=price>0?fmt(price):'—';
+  document.getElementById('d-cogs').textContent=cogs>0?'-'+fmt(cogs):'₫0';
+  document.getElementById('d-pack').textContent=pack>0?'-'+fmt(pack):'₫0';
+  document.getElementById('d-gd').textContent=price>0?'-'+fmt(gd):'—';
+  document.getElementById('d-hh').textContent=price>0?'-'+fmt(hh):'—';
+  document.getElementById('d-tax').textContent=price>0?'-'+fmt(tax):'—';
+  document.getElementById('d-aff').textContent=price>0&&hasAff?'-'+fmt(aff):'—';
+  const netEl=document.getElementById('d-net');
+  if(price>0){netEl.textContent=(profit>=0?'':'-')+fmt(profit);netEl.style.color=profit>=0?'#1D9E75':'#D85A30';}
+  else{netEl.textContent='—';netEl.style.color='#1a1a1a';}
+  if(price>0){
+    const pctSan=((gd+hh+tax+fixed+(hasAff?aff:0))/price*100).toFixed(1);
+    document.getElementById('note-txt').textContent='Phí sàn chiếm '+pctSan+'% giá bán';
+  } else document.getElementById('note-txt').textContent='';
+}
+</script>
+</body>
+</html>
